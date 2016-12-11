@@ -26,11 +26,12 @@ def main():
     print 'Scanning sequences -- first pass to gather info'
     for n, record in enumerate(screed.open(transcript_file)):
         tr = record.name.split('.')[2]
+        tr = tr.split()[0]
         assert tr.startswith('tr')
 
         if n % 25000 == 0:
             print '...', n
-        name = record.name
+        name = record.name.split()[0]
         annot = None
 
         o = ortho.get(name)
@@ -83,6 +84,7 @@ def main():
     for n, record in enumerate(screed.open(transcript_file)):
         seqid = record.name.split('.')[1]
         tr = record.name.split('.')[2]
+        tr = tr.split()[0]
 
         ortho_col = ""
         homol_score = ""
@@ -92,7 +94,7 @@ def main():
 
         if n % 25000 == 0:
             print '... x2', n
-        name = record.name
+        name = record.name.split()[0]
         annot = None
 
         o = ortho.get(name)
@@ -103,7 +105,6 @@ def main():
             annot_ortho_count += 1
         else:
             h = homol.get(name)
-
             if h and transform_name(h[0][0]) in namedb.mouse_names:
                 h, score = h[0]
                 score = round(float(score) / float(len(record.sequence)) * 100)

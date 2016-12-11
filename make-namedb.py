@@ -9,7 +9,7 @@ outfile = sys.argv[2]
 d = {}
 e = {}
 is_ncbi = False
-for record in screed.open(sys.argv[1]):
+for record in screed.open(sys.argv[1], parse_description=True):
     if record.name.startswith('gi|'):
         is_ncbi = True
         ident = record.name.split('|')[3]
